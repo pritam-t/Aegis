@@ -85,22 +85,47 @@
 
     <script src="../js/supabaseClient.js"></script>
     <script src="../js/data.js"></script>
-    <script>
-function logout() {
-    window.location.href = 'login.html';
-}
 
-window.onload = async function () {
-    await fetchViolations();   // load DB data first
+<script>
+    function logout() {
+        window.location.href = 'login.html';
+    }
 
-    const stats = getStatistics();
+    async function updateDashboardStats() {
+        const stats = getStatistics();
 
-    document.getElementById('totalEvents').textContent = stats.total;
-    document.getElementById('validatedEvents').textContent = stats.paid;
-    document.getElementById('pendingEvents').textContent = stats.pending;
-    document.getElementById('totalFines').textContent = stats.totalAmount;
-};
+        document.getElementById('totalEvents').textContent = stats.total;
+        document.getElementById('validatedEvents').textContent = stats.paid;
+        document.getElementById('pendingEvents').textContent = stats.pending;
+        document.getElementById('totalFines').textContent = stats.totalAmount;
+    }
+
+    function subscribeRealtime() {
+        supabaseClient
+            .channel('violations')
+            .on(
+                'postgres_changes',
+                {
+                    event: '*',
+                    schema: 'public',
+                    table: 'violation_event'
+                },
+                async () => {
+                    console.log("Database updated — refreshing dashboard...");
+                    await fetchViolations();
+                    await updateDashboardStats();
+                }
+            )
+            .subscribe();
+    }
+
+    window.onload = async function () {
+        await fetchViolations();       // Load violations from DB
+        await updateDashboardStats();  // Update dashboard cards
+        subscribeRealtime();           // Enable realtime updates
+    };
 </script>
+
 
 </body>
 </html>

@@ -102,6 +102,24 @@ function initEventsPage() {
     updateSummaryCards();
 }
 
+function subscribeRealtime() {
+    supabaseClient
+        .channel('violations-events')
+        .on(
+            'postgres_changes',
+            {
+                event: '*',
+                schema: 'public',
+                table: 'violation_event'
+            },
+            async () => {
+                await fetchViolations();
+                renderEvents(); // or loadEvents()
+            }
+        )
+        .subscribe();
+}
+
 // Load events on page load
 window.onload = async function () {
     await fetchViolations();
