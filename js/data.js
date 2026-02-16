@@ -1,7 +1,7 @@
 let violationData = [];
 
 async function fetchViolations() {
-    const { data, error } = await supabase
+    const { data, error } = await supabaseClient
         .from("violation_event")
         .select(`
             id,
