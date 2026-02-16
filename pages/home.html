@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Aegis AI Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="dashboard active">
+        <!-- Top Bar with Navigation -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="logo">AEGIS</div>
+                <ul class="nav-menu">
+                    <li><a href="home.html" class="active">Home</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                </ul>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-name">Admin</div>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Home Page Content -->
+        <div class="content">
+            <!-- Main Description Card -->
+            <div class="card">
+                <h2>Aegis AI – Intelligent Vision-Driven Decision Platform</h2>
+                <p>Aegis AI is a backend-centric, intelligent decision platform that transforms raw camera input into structured, actionable system decisions using Computer Vision, AI Agents, and a Spring Boot–based microservice architecture.</p>
+                <p>Unlike traditional vision projects that stop at detection, Aegis focuses on decision intelligence: validation, reasoning, policy execution, auditability, and automated actions. The system demonstrates strong software engineering maturity, AI-assisted reasoning, and real-world problem-solving capabilities.</p>
+            </div>
+
+            <!-- Statistics Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Events</h3>
+                    <p id="totalEvents">10</p>
+                </div>
+                <div class="stat-card" style="border-left-color: #28a745;">
+                    <h3>Validated</h3>
+                    <p id="validatedEvents">6</p>
+                </div>
+                <div class="stat-card" style="border-left-color: #ffc107;">
+                    <h3>Pending Review</h3>
+                    <p id="pendingEvents">4</p>
+                </div>
+                <div class="stat-card" style="border-left-color: #dc3545;">
+                    <h3>Total Fines</h3>
+                    <p id="totalFines">₹9,000</p>
+                </div>
+            </div>
+
+            <!-- System Architecture Card -->
+            <div class="card">
+                <h2>System Architecture</h2>
+                <h3>Core Components</h3>
+                <p><strong>Vision Processing Layer:</strong> Frame ingestion, object detection, OCR for text-based metadata using OpenCV, YOLO, and EasyOCR.</p>
+                <p><strong>AI Agent Layer:</strong> The core innovation featuring Validation Agents, Context Reasoning Agents, Decision Agents, and Action Agents that reason over uncertainty rather than just detecting objects.</p>
+                <p><strong>Spring Boot Backend:</strong> Enterprise-grade REST API gateway, policy management, event lifecycle handling, and evidence storage with role-based access control.</p>
+                <p><strong>Notification & Action Layer:</strong> Email notifications, webhook triggers, and dashboard updates with extensible third-party integrations.</p>
+            </div>
+
+            <!-- Key Features Card -->
+            <div class="card">
+                <h2>Key Features</h2>
+                <p><strong>Multi-Agent Validation:</strong> Multiple AI agents validate and reason over detection results with confidence thresholds to minimize false positives.</p>
+                <p><strong>Policy-Agnostic Design:</strong> Flexible policy engine allows dynamic rule configuration without code changes.</p>
+                <p><strong>Complete Auditability:</strong> Every decision is logged with evidence, reasoning chain, and agent confidence scores.</p>
+                <p><strong>Real-Time Processing:</strong> Async processing pipelines handle video streams and batch operations efficiently.</p>
+                <p><strong>Decision Intelligence:</strong> Goes beyond detection to provide validated, contextual, and actionable insights.</p>
+            </div>
+
+            <!-- Quick Actions Card -->
+            <div class="card">
+                <h2>Quick Actions</h2>
+                <button class="btn-primary" style="width: auto; padding: 12px 32px;" onclick="window.location.href='events.html'">View All Events</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/data.js"></script>
+    <script>
+        function logout() {
+            window.location.href = 'login.html';
+        }
+
+        // Update statistics on page load
+        window.onload = function() {
+            const stats = getStatistics();
+            document.getElementById('totalEvents').textContent = stats.total;
+            document.getElementById('validatedEvents').textContent = stats.paid;
+            document.getElementById('pendingEvents').textContent = stats.pending;
+            document.getElementById('totalFines').textContent = stats.totalAmount;
+        };
+    </script>
+</body>
+</html>

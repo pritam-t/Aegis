@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - Aegis AI Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard active">
+        <!-- Top Bar -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="logo">AEGIS</div>
+                <ul class="nav-menu">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="statistics.html" class="active">Statistics</a></li>
+                </ul>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-name">Admin</div>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div class="content">
+            <h1 class="section-header">Analytics & Statistics</h1>
+
+            <!-- Stats Cards -->
+            <div id="statsSection" class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Events</h3>
+                    <p id="totalEvents">10</p>
+                </div>
+                <div class="stat-card" style="border-left-color: #28a745;">
+                    <h3>Compliance Rate</h3>
+                    <p id="complianceRate">10%</p>
+                </div>
+                <div class="stat-card" style="border-left-color: #dc3545;">
+                    <h3>Violation Rate</h3>
+                    <p id="violationRate">90%</p>
+                </div>
+                <div class="stat-card" style="border-left-color: #ffc107;">
+                    <h3>Avg Confidence</h3>
+                    <p id="avgConfidence">96.8%</p>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div id="chartsSection">
+
+                <!-- Daily Trend -->
+                <div class="card">
+                    <h2>Daily Violations Trend</h2>
+                    <canvas id="dailyTrendChart" style="max-height: 300px;"></canvas>
+                </div>
+
+                <!-- Charts Row -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-bottom: 30px;">
+                    
+                    <div class="card">
+                        <h2>Violations by Type</h2>
+                        <canvas id="violationTypeChart" style="max-height: 280px;"></canvas>
+                    </div>
+
+                    <div class="card">
+                        <h2>Payment Status</h2>
+                        <canvas id="paymentStatusChart" style="max-height: 280px;"></canvas>
+                    </div>
+
+                    <div class="card">
+                        <h2>Confidence Score</h2>
+                        <canvas id="confidenceChart" style="max-height: 280px;"></canvas>
+                    </div>
+                </div>
+
+                <!-- Fine Collection -->
+                <div class="card">
+                    <h2>Fine Collection Analysis</h2>
+                    <canvas id="fineCollectionChart" style="max-height: 250px;"></canvas>
+                </div>
+
+            </div> <!-- chartsSection end -->
+
+            <!-- Location Table -->
+            <div id="locationSection" class="card">
+                <h2>Top Violation Locations</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Location</th>
+                                <th>Violations</th>
+                                <th>Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="locationTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Summary -->
+            <div class="card">
+                <h2>Detailed Statistics Summary</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 12px; color: #666;">Detection Accuracy</h3>
+                        <p style="font-size: 14px; line-height: 1.8;">
+                            <strong>Highest Confidence:</strong> 99.5%<br>
+                            <strong>Lowest Confidence:</strong> 93.4%<br>
+                            <strong>Average Confidence:</strong> <span id="avgConf2">96.8%</span><br>
+                            <strong>High Confidence (&gt;95%):</strong> <span id="highConfCount">7</span> events
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 12px; color: #666;">Financial Overview</h3>
+                        <p style="font-size: 14px; line-height: 1.8;">
+                            <strong>Total Fines Issued:</strong> ₹9,000<br>
+                            <strong>Amount Collected:</strong> <span id="collectedAmount">₹5,000</span><br>
+                            <strong>Pending Amount:</strong> <span id="pendingAmount">₹4,000</span><br>
+                            <strong>Collection Rate:</strong> <span id="collectionRate">55.6%</span>
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 12px; color: #666;">Time Analysis</h3>
+                        <p style="font-size: 14px; line-height: 1.8;">
+                            <strong>Peak Violation Day:</strong> Feb 15, 2024<br>
+                            <strong>Most Active Time:</strong> Afternoon (2-5 PM)<br>
+                            <strong>Date Range:</strong> Feb 11-15, 2024<br>
+                            <strong>Days Monitored:</strong> 5 days
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/data.js"></script>
+    <script src="../js/statistics.js"></script>
+</body>
+</html>

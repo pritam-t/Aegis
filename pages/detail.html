@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - Aegis AI Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-update {
+            padding: 12px 24px;
+            background-color: #ff6b35;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Hubot Sans', sans-serif;
+            font-size: 14px;
+        }
+
+        .btn-update:hover {
+            background-color: #e55a2b;
+        }
+
+        .btn-delete {
+            padding: 12px 24px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Hubot Sans', sans-serif;
+            font-size: 14px;
+        }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard active">
+        <!-- Top Bar with Navigation -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="logo">AEGIS</div>
+                <ul class="nav-menu">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="events.html" class="active">Events</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                </ul>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-name">Admin</div>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Detail Page Content -->
+        <div class="content">
+            <div class="detail-header">
+                <h1 style="font-size: 28px; font-weight: 700;">Event Details</h1>
+                <button class="btn-back" onclick="window.location.href='events.html'">Back to Events</button>
+            </div>
+
+            <div class="card">
+                <h2>Violator Information</h2>
+                <div class="detail-grid">
+                    <div>
+                        <div class="info-item">
+                            <div class="info-label">Event ID</div>
+                            <div class="info-value" id="detailId">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Number Plate</div>
+                            <div class="info-value" id="detailPlate">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Owner Name</div>
+                            <div class="info-value" id="detailName">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Mobile Number</div>
+                            <div class="info-value" id="detailMobile">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Email ID</div>
+                            <div class="info-value" id="detailEmail">-</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="info-item">
+                            <div class="info-label">Timestamp</div>
+                            <div class="info-value" id="detailTimestamp">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Location</div>
+                            <div class="info-value" id="detailLocation">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Violation Type</div>
+                            <div class="info-value" id="detailType">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Confidence Score</div>
+                            <div class="info-value" id="detailConfidence">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Violation Fine</div>
+                            <div class="info-value" id="detailFine">-</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Payment Status</div>
+                            <div class="info-value" id="detailStatus">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <button class="btn-update" onclick="showEditModal(currentViolationId)">
+                        Update Information
+                    </button>
+                    <button class="btn-delete" onclick="deleteViolation(currentViolationId)">
+                        Delete Record
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Registered Address</h2>
+                <p id="detailAddress" style="color: #333; line-height: 1.6;">-</p>
+            </div>
+
+            <div class="card">
+                <h2>Detection Evidence</h2>
+                <img id="detailImage" class="violation-image" src="" alt="Violation evidence captured by vision system">
+            </div>
+        </div>
+    </div>
+
+    <!-- External Scripts -->
+    <script src="../js/data.js"></script>
+    <script src="../js/detailActions.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Aegis AI Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="dashboard active">
+        <!-- Top Bar with Navigation -->
+        <div class="topbar">
+            <div class="topbar-left">
+                <div class="logo">AEGIS</div>
+                <ul class="nav-menu">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="events.html" class="active">Events</a></li>
+                    <li><a href="statistics.html">Statistics</a></li>
+                </ul>
+            </div>
+            <div class="topbar-right">
+                <div class="admin-name">Admin</div>
+                <button class="btn-logout" onclick="logout()">Logout</button>
+            </div>
+        </div>
+
+        <!-- Events Page Content -->
+        <div class="content">
+            <h1 class="section-header">Violation Events</h1>
+
+            <!-- Summary Cards at Top -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Today's Events</h3>
+                    <p id="todayCount">2</p>
+                </div>
+                <div class="stat-card" style="border-left-color: #dc3545;">
+                    <h3>High Confidence (>95%)</h3>
+                    <p id="highConfidence">7</p>
+                </div>
+                <div class="stat-card" style="border-left-color: #ffc107;">
+                    <h3>Pending Payment</h3>
+                    <p id="pendingPayment">4</p>
+                </div>
+            </div>
+
+            <!-- Violations Tables Grouped by Date -->
+            <div id="violationsContainer"></div>
+        </div>
+    </div>
+
+    <!-- External Scripts -->
+    <script src="../js/data.js"></script>
+    <script src="../js/events.js"></script>
+</body>
+</html>
