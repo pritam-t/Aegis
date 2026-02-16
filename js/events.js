@@ -103,4 +103,7 @@ function initEventsPage() {
 }
 
 // Load events on page load
-window.onload = initEventsPage;
+window.onload = async function () {
+    await fetchViolations();
+    initEventsPage();
+};

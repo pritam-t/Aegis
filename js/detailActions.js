@@ -215,6 +215,7 @@ function deleteViolation(violationId) {
 }
 
 // Initialize when page loads
-window.onload = function() {
+window.onload = async function () {
+    await fetchViolations();
     loadViolationDetail();
 };

@@ -475,4 +475,9 @@ function setupScrollAnimations() {
     observer.observe(document.getElementById('locationSection'));
 }
 
-window.onload = setupScrollAnimations;
+
+window.onload = async function () {
+    await fetchViolations();
+    setupScrollAnimations();
+};
+
