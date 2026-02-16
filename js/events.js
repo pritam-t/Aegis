@@ -1,8 +1,8 @@
 // events.js - All logic for events page
 
-// Logout function
-function logout() {
-    window.location.href = 'login.html';
+async function logout() {
+    await supabaseClient.auth.signOut();
+    window.location.href = "login.html";
 }
 
 // Navigate to detail page

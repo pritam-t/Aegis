@@ -2,10 +2,11 @@
 
 let currentViolationId = null;
 
-// Logout function
-function logout() {
-    window.location.href = 'login.html';
+async function logout() {
+    await supabaseClient.auth.signOut();
+    window.location.href = "login.html";
 }
+
 
 // Load violation detail from URL
 function loadViolationDetail() {

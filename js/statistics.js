@@ -437,10 +437,11 @@ function createLocationTable() {
     });
 }
 
-// Logout function
-function logout() {
-    window.location.href = 'login.html';
+async function logout() {
+    await supabaseClient.auth.signOut();
+    window.location.href = "login.html";
 }
+
 
 function setupScrollAnimations() {
     const options = { threshold: 0.25 };
