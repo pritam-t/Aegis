@@ -86,18 +86,21 @@
     <script src="../js/supabaseClient.js"></script>
     <script src="../js/data.js"></script>
     <script>
-        function logout() {
-            window.location.href = 'login.html';
-        }
+function logout() {
+    window.location.href = 'login.html';
+}
 
-        // Update statistics on page load
-        window.onload = function() {
-            const stats = getStatistics();
-            document.getElementById('totalEvents').textContent = stats.total;
-            document.getElementById('validatedEvents').textContent = stats.paid;
-            document.getElementById('pendingEvents').textContent = stats.pending;
-            document.getElementById('totalFines').textContent = stats.totalAmount;
-        };
-    </script>
+window.onload = async function () {
+    await fetchViolations();   // load DB data first
+
+    const stats = getStatistics();
+
+    document.getElementById('totalEvents').textContent = stats.total;
+    document.getElementById('validatedEvents').textContent = stats.paid;
+    document.getElementById('pendingEvents').textContent = stats.pending;
+    document.getElementById('totalFines').textContent = stats.totalAmount;
+};
+</script>
+
 </body>
 </html>
