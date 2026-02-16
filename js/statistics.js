@@ -1,6 +1,11 @@
 // statistics.js - All logic for statistics page with animations
 
 // Calculate statistics
+
+let statsLoaded = false;
+let chartsLoaded = false;
+let tableLoaded = false;
+
 function calculateStats() {
     const total = violationData.length;
     const noHelmet = violationData.filter(v => v.type === 'No Helmet').length;
@@ -437,7 +442,6 @@ function logout() {
     window.location.href = 'login.html';
 }
 
-// Initialize on load
 function setupScrollAnimations() {
     const options = { threshold: 0.25 };
 
@@ -447,16 +451,19 @@ function setupScrollAnimations() {
 
             const id = entry.target.id;
 
-            if (id === 'statsSection') {
+            if (id === 'statsSection' && !statsLoaded) {
                 updateStatsCards();
+                statsLoaded = true;
             }
 
-            if (id === 'chartsSection') {
+            if (id === 'chartsSection' && !chartsLoaded) {
                 createCharts();
+                chartsLoaded = true;
             }
 
-            if (id === 'locationSection') {
+            if (id === 'locationSection' && !tableLoaded) {
                 createLocationTable();
+                tableLoaded = true;
             }
 
             obs.unobserve(entry.target);
