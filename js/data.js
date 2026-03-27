@@ -13,6 +13,7 @@ async function fetchViolations() {
             violation_fine,
             fine_paid,
             image1_url,
+            image2_url,
             vehicle_owner (
                 owner_name,
                 mobile_number,
@@ -42,7 +43,12 @@ async function fetchViolations() {
         email: v.vehicle_owner?.email || "",
         address: v.vehicle_owner?.address || "",
         location: v.location,
-        image: v.image1_url
+        image: v.image1_url 
+        ? supabaseClient.storage.from('violation_image').getPublicUrl(v.image1_url).data.publicUrl 
+        : null,
+    plateImage: v.image2_url 
+        ? supabaseClient.storage.from('number_plates').getPublicUrl(v.image2_url).data.publicUrl 
+        : null,
     }));
 }
 

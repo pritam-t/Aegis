@@ -45,7 +45,8 @@ function loadViolationDetail() {
         ? '<span class="status-badge status-paid">Paid</span>' 
         : '<span class="status-badge status-pending">Pending</span>';
     document.getElementById('detailAddress').textContent = violation.address;
-    document.getElementById('detailImage').src = violation.image;
+    document.getElementById('detailImage').src = violation.image || 'placeholder.jpg';
+    document.getElementById('detailPlateImage').src = violation.plateImage || 'placeholder.jpg';
 }
 
 // Show edit modal (Professional modal with form)
