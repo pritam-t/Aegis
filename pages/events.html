@@ -30,30 +30,99 @@
         <div class="content">
             <h1 class="section-header">Violation Events</h1>
 
-            <!-- Summary Cards at Top -->
+            <!-- Summary Cards -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Today's Events</h3>
-                    <p id="todayCount">2</p>
+                    <span class="skeleton skeleton-stat-number" id="skel-todayCount"></span>
+                    <p id="todayCount" style="display:none;">–</p>
                 </div>
                 <div class="stat-card" style="border-left-color: #dc3545;">
-                    <h3>High Confidence (>95%)</h3>
-                    <p id="highConfidence">7</p>
+                    <h3>High Confidence (&gt;95%)</h3>
+                    <span class="skeleton skeleton-stat-number" id="skel-highConfidence"></span>
+                    <p id="highConfidence" style="display:none;">–</p>
                 </div>
                 <div class="stat-card" style="border-left-color: #ffc107;">
                     <h3>Pending Payment</h3>
-                    <p id="pendingPayment">4</p>
+                    <span class="skeleton skeleton-stat-number" id="skel-pendingPayment"></span>
+                    <p id="pendingPayment" style="display:none;">–</p>
                 </div>
             </div>
 
-            <!-- Violations Tables Grouped by Date -->
-            <div id="violationsContainer"></div>
+            <!-- Skeleton placeholder for violations table -->
+            <div id="violationsSkeleton">
+                <!-- Skeleton card 1 -->
+                <div class="card">
+                    <span class="skeleton skeleton-title"></span>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th><th>Number Plate</th><th>Timestamp</th>
+                                    <th>Confidence</th><th>Violation Type</th>
+                                    <th>Violation Fine</th><th>Fine Paid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 5 skeleton rows -->
+                                <tr><td colspan="7"><div class="skeleton-row">
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:12%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:18%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                </div></td></tr>
+                                <tr><td colspan="7"><div class="skeleton-row">
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:12%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:18%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                </div></td></tr>
+                                <tr><td colspan="7"><div class="skeleton-row">
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:12%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:18%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                </div></td></tr>
+                                <tr><td colspan="7"><div class="skeleton-row">
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:12%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:18%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                </div></td></tr>
+                                <tr><td colspan="7"><div class="skeleton-row">
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:12%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:18%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:14%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                    <span class="skeleton skeleton-cell" style="width:10%"></span>
+                                </div></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real violations content (hidden until loaded) -->
+            <div id="violationsContainer" style="display:none;"></div>
         </div>
     </div>
 
-
     <!-- External Scripts -->
-     <script src="../js/supabaseClient.js"></script>
+    <script src="../js/supabaseClient.js"></script>
     <script src="../js/data.js"></script>
     <script src="../js/events.js"></script>
 </body>

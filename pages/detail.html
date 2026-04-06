@@ -8,48 +8,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Hubot+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/styles.css">
     <style>
-        .action-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
+        .action-buttons { display: flex; gap: 10px; margin-top: 20px; }
 
         .btn-update {
-            padding: 12px 24px;
-            background-color: #ff6b35;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Hubot Sans', sans-serif;
-            font-size: 14px;
+            padding: 12px 24px; background-color: #ff6b35; color: white;
+            border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
+            font-family: 'Hubot Sans', sans-serif; font-size: 14px;
         }
-
-        .btn-update:hover {
-            background-color: #e55a2b;
-        }
+        .btn-update:hover { background-color: #e55a2b; }
 
         .btn-delete {
-            padding: 12px 24px;
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: 'Hubot Sans', sans-serif;
-            font-size: 14px;
+            padding: 12px 24px; background-color: #dc3545; color: white;
+            border: none; border-radius: 6px; font-weight: 600; cursor: pointer;
+            font-family: 'Hubot Sans', sans-serif; font-size: 14px;
         }
+        .btn-delete:hover { background-color: #c82333; }
 
-        .btn-delete:hover {
-            background-color: #c82333;
-        }
+        /* hide action buttons during skeleton phase */
+        .action-buttons.loading { visibility: hidden; }
     </style>
 </head>
 <body>
     <div class="dashboard active">
-        <!-- Top Bar with Navigation -->
+        <!-- Top Bar -->
         <div class="topbar">
             <div class="topbar-left">
                 <div class="logo">AEGIS</div>
@@ -72,88 +53,104 @@
                 <button class="btn-back" onclick="window.location.href='events.html'">Back to Events</button>
             </div>
 
+            <!-- Violator Information Card -->
             <div class="card">
                 <h2>Violator Information</h2>
                 <div class="detail-grid">
+                    <!-- Left column -->
                     <div>
                         <div class="info-item">
                             <div class="info-label">Event ID</div>
-                            <div class="info-value" id="detailId">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailId"></span>
+                            <div class="info-value" id="detailId" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Number Plate</div>
-                            <div class="info-value" id="detailPlate">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailPlate"></span>
+                            <div class="info-value" id="detailPlate" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Owner Name</div>
-                            <div class="info-value" id="detailName">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailName"></span>
+                            <div class="info-value" id="detailName" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Mobile Number</div>
-                            <div class="info-value" id="detailMobile">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailMobile"></span>
+                            <div class="info-value" id="detailMobile" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Email ID</div>
-                            <div class="info-value" id="detailEmail">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailEmail"></span>
+                            <div class="info-value" id="detailEmail" style="display:none;">-</div>
                         </div>
                     </div>
+                    <!-- Right column -->
                     <div>
                         <div class="info-item">
                             <div class="info-label">Timestamp</div>
-                            <div class="info-value" id="detailTimestamp">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailTimestamp"></span>
+                            <div class="info-value" id="detailTimestamp" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Location</div>
-                            <div class="info-value" id="detailLocation">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailLocation"></span>
+                            <div class="info-value" id="detailLocation" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Violation Type</div>
-                            <div class="info-value" id="detailType">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailType"></span>
+                            <div class="info-value" id="detailType" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Confidence Score</div>
-                            <div class="info-value" id="detailConfidence">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailConfidence"></span>
+                            <div class="info-value" id="detailConfidence" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Violation Fine</div>
-                            <div class="info-value" id="detailFine">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailFine"></span>
+                            <div class="info-value" id="detailFine" style="display:none;">-</div>
                         </div>
                         <div class="info-item">
                             <div class="info-label">Payment Status</div>
-                            <div class="info-value" id="detailStatus">-</div>
+                            <span class="skeleton skeleton-info-value" id="skel-detailStatus"></span>
+                            <div class="info-value" id="detailStatus" style="display:none;">-</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <button class="btn-update" onclick="showEditModal(currentViolationId)">
-                        Update Information
-                    </button>
-                    <button class="btn-delete" onclick="deleteViolation(currentViolationId)">
-                        Delete Record
-                    </button>
+                <!-- Action Buttons (hidden while loading) -->
+                <div class="action-buttons loading" id="actionButtons">
+                    <button class="btn-update" onclick="showEditModal(currentViolationId)">Update Information</button>
+                    <button class="btn-delete" onclick="deleteViolation(currentViolationId)">Delete Record</button>
                 </div>
             </div>
 
+            <!-- Registered Address Card -->
             <div class="card">
                 <h2>Registered Address</h2>
-                <p id="detailAddress" style="color: #333; line-height: 1.6;">-</p>
+                <span class="skeleton skeleton-line w-60" id="skel-detailAddress"></span>
+                <p id="detailAddress" style="color:#333; line-height:1.6; display:none;">-</p>
             </div>
 
+            <!-- Detection Evidence Card -->
             <div class="card">
-            <h2>Detection Evidence</h2>
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                <div>
-                    <p style="font-weight: 600; margin-bottom: 8px;">Violation Image</p>
-                    <img id="detailImage" class="violation-image" src="" alt="Violation evidence">
-                </div>
-                <div>
-                    <p style="font-weight: 600; margin-bottom: 8px;">Number Plate Image</p>
-                    <img id="detailPlateImage" class="violation-image" src="" alt="Number plate capture">
+                <h2>Detection Evidence</h2>
+                <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                    <div>
+                        <p style="font-weight:600; margin-bottom:8px;">Violation Image</p>
+                        <!-- skeleton placeholder -->
+                        <span class="skeleton skeleton-image" id="skel-detailImage"></span>
+                        <img id="detailImage" class="violation-image" src="" alt="Violation evidence" style="display:none;">
+                    </div>
+                    <div>
+                        <p style="font-weight:600; margin-bottom:8px;">Number Plate Image</p>
+                        <span class="skeleton skeleton-image" id="skel-detailPlateImage"></span>
+                        <img id="detailPlateImage" class="violation-image" src="" alt="Number plate capture" style="display:none;">
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
 

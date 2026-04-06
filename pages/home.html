@@ -39,19 +39,24 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Total Events</h3>
-                    <p id="totalEvents">10</p>
+                    <!-- skeleton shown while loading, real value hidden -->
+                    <span class="skeleton skeleton-stat-number" id="skel-totalEvents"></span>
+                    <p id="totalEvents" style="display:none;">–</p>
                 </div>
                 <div class="stat-card" style="border-left-color: #28a745;">
                     <h3>Validated</h3>
-                    <p id="validatedEvents">6</p>
+                    <span class="skeleton skeleton-stat-number" id="skel-validatedEvents"></span>
+                    <p id="validatedEvents" style="display:none;">–</p>
                 </div>
                 <div class="stat-card" style="border-left-color: #ffc107;">
                     <h3>Pending Review</h3>
-                    <p id="pendingEvents">4</p>
+                    <span class="skeleton skeleton-stat-number" id="skel-pendingEvents"></span>
+                    <p id="pendingEvents" style="display:none;">–</p>
                 </div>
                 <div class="stat-card" style="border-left-color: #dc3545;">
                     <h3>Total Fines</h3>
-                    <p id="totalFines">₹9,000</p>
+                    <span class="skeleton skeleton-stat-number" id="skel-totalFines"></span>
+                    <p id="totalFines" style="display:none;">–</p>
                 </div>
             </div>
 
@@ -86,48 +91,44 @@
     <script src="../js/supabaseClient.js"></script>
     <script src="../js/data.js"></script>
 
-<script>
-    async function logout() {
-    await supabaseClient.auth.signOut();
-    window.location.href = "login.html";
-}
+    <script>
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            window.location.href = "login.html";
+        }
 
+        function revealStat(skelId, valId, value) {
+            document.getElementById(skelId).style.display = 'none';
+            const el = document.getElementById(valId);
+            el.style.display = 'block';
+            el.textContent = value;
+        }
 
-    async function updateDashboardStats() {
-        const stats = getStatistics();
+        async function updateDashboardStats() {
+            const stats = getStatistics();
+            revealStat('skel-totalEvents',     'totalEvents',     stats.total);
+            revealStat('skel-validatedEvents', 'validatedEvents', stats.paid);
+            revealStat('skel-pendingEvents',   'pendingEvents',   stats.pending);
+            revealStat('skel-totalFines',      'totalFines',      stats.totalAmount);
+        }
 
-        document.getElementById('totalEvents').textContent = stats.total;
-        document.getElementById('validatedEvents').textContent = stats.paid;
-        document.getElementById('pendingEvents').textContent = stats.pending;
-        document.getElementById('totalFines').textContent = stats.totalAmount;
-    }
+        function subscribeRealtime() {
+            supabaseClient
+                .channel('violations')
+                .on('postgres_changes',
+                    { event: '*', schema: 'public', table: 'violation_event' },
+                    async () => {
+                        await fetchViolations();
+                        await updateDashboardStats();
+                    })
+                .subscribe();
+        }
 
-    function subscribeRealtime() {
-        supabaseClient
-            .channel('violations')
-            .on(
-                'postgres_changes',
-                {
-                    event: '*',
-                    schema: 'public',
-                    table: 'violation_event'
-                },
-                async () => {
-                    console.log("Database updated — refreshing dashboard...");
-                    await fetchViolations();
-                    await updateDashboardStats();
-                }
-            )
-            .subscribe();
-    }
-
-    window.onload = async function () {
-        await fetchViolations();       // Load violations from DB
-        await updateDashboardStats();  // Update dashboard cards
-        subscribeRealtime();           // Enable realtime updates
-    };
-</script>
-
-
+        window.onload = async function () {
+            await fetchViolations();
+            await updateDashboardStats();
+            subscribeRealtime();
+        };
+    </script>
 </body>
 </html>

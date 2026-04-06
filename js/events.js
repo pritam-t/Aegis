@@ -17,31 +17,36 @@ function formatDate(dateString) {
     return date.toLocaleDateString('en-US', options);
 }
 
+// Reveal a stat card: hide skeleton, show real value
+function revealStat(skelId, valId, value) {
+    document.getElementById(skelId).style.display = 'none';
+    const el = document.getElementById(valId);
+    el.style.display = 'block';
+    el.textContent = value;
+}
+
 // Load and display events grouped by date
 function loadEventsByDate() {
     const container = document.getElementById('violationsContainer');
     const groupedData = groupViolationsByDate();
-    
+
     // Sort dates in descending order (most recent first)
     const sortedDates = Object.keys(groupedData).sort((a, b) => new Date(b) - new Date(a));
-    
+
     sortedDates.forEach(date => {
         const violations = groupedData[date];
-        
-        // Create card for this date
+
         const card = document.createElement('div');
         card.className = 'card';
-        
-        // Date header inside card
+
         const dateHeader = document.createElement('h2');
         dateHeader.textContent = formatDate(date);
         dateHeader.style.marginBottom = '20px';
         card.appendChild(dateHeader);
-        
-        // Create table
+
         const tableContainer = document.createElement('div');
         tableContainer.className = 'table-container';
-        
+
         const table = document.createElement('table');
         table.innerHTML = `
             <thead>
@@ -57,9 +62,9 @@ function loadEventsByDate() {
             </thead>
             <tbody></tbody>
         `;
-        
+
         const tbody = table.querySelector('tbody');
-        
+
         violations.forEach(violation => {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -73,7 +78,7 @@ function loadEventsByDate() {
             `;
             tbody.appendChild(row);
         });
-        
+
         tableContainer.appendChild(table);
         card.appendChild(tableContainer);
         container.appendChild(card);
@@ -82,24 +87,25 @@ function loadEventsByDate() {
 
 // Update summary cards at the top
 function updateSummaryCards() {
-    // Today's count (assuming today is 2024-02-15)
-    const todayDate = '2024-02-15';
-    const todayEvents = violationData.filter(v => v.date === todayDate).length;
-    document.getElementById('todayCount').textContent = todayEvents;
+    const today = new Date().toISOString().split('T')[0];
+    const todayEvents = violationData.filter(v => v.date === today).length;
+    revealStat('skel-todayCount', 'todayCount', todayEvents);
 
-    // High confidence count (>95%)
     const highConfCount = violationData.filter(v => parseFloat(v.confidence) > 95).length;
-    document.getElementById('highConfidence').textContent = highConfCount;
+    revealStat('skel-highConfidence', 'highConfidence', highConfCount);
 
-    // Pending payment count
     const pendingCount = violationData.filter(v => !v.paid).length;
-    document.getElementById('pendingPayment').textContent = pendingCount;
+    revealStat('skel-pendingPayment', 'pendingPayment', pendingCount);
 }
 
 // Initialize events page
 function initEventsPage() {
     loadEventsByDate();
     updateSummaryCards();
+
+    // Hide skeleton, reveal real content
+    document.getElementById('violationsSkeleton').style.display = 'none';
+    document.getElementById('violationsContainer').style.display = 'block';
 }
 
 function subscribeRealtime() {
@@ -107,14 +113,12 @@ function subscribeRealtime() {
         .channel('violations-events')
         .on(
             'postgres_changes',
-            {
-                event: '*',
-                schema: 'public',
-                table: 'violation_event'
-            },
+            { event: '*', schema: 'public', table: 'violation_event' },
             async () => {
                 await fetchViolations();
-                renderEvents(); // or loadEvents()
+                // Clear and re-render
+                document.getElementById('violationsContainer').innerHTML = '';
+                initEventsPage();
             }
         )
         .subscribe();
@@ -124,4 +128,5 @@ function subscribeRealtime() {
 window.onload = async function () {
     await fetchViolations();
     initEventsPage();
+    subscribeRealtime();
 };
