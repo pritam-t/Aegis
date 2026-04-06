@@ -219,8 +219,6 @@ function deleteViolation(violationId) {
     window.location.href = 'events.html';
 }
 
-console.log("Violation Image:", violation.image);
-console.log("Plate Image:", violation.plateImage);
 
 // Initialize when page loads
 window.onload = async function () {
