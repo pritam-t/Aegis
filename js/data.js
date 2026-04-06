@@ -43,12 +43,8 @@ async function fetchViolations() {
         email: v.vehicle_owner?.email || "",
         address: v.vehicle_owner?.address || "",
         location: v.location,
-        image: v.violation_img
-            ? supabaseClient.storage.from('violation_image').getPublicUrl(v.violation_img).data.publicUrl
-            : null,
+        image: v.violation_img,
         plateImage: v.number_plate_img
-            ? supabaseClient.storage.from('number_plates').getPublicUrl(v.number_plate_img).data.publicUrl
-            : null,
     }));
 }
 

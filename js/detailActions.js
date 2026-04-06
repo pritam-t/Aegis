@@ -46,10 +46,10 @@ function loadViolationDetail() {
         : '<span class="status-badge status-pending">Pending</span>';
     document.getElementById('detailAddress').textContent = violation.address;
     const imgEl = document.getElementById('detailImage');
-    if (imgEl) imgEl.src = violation.image || '';
+    if (imgEl) imgEl.src = violation.violation_img || '';
 
     const plateImgEl = document.getElementById('detailPlateImage');
-    if (plateImgEl) plateImgEl.src = violation.plateImage || '';
+    if (plateImgEl) plateImgEl.src = violation.number_plate_img || '';
 }
 
 // Show edit modal (Professional modal with form)
@@ -218,6 +218,9 @@ function deleteViolation(violationId) {
     alert('Violation deleted successfully!');
     window.location.href = 'events.html';
 }
+
+console.log("Violation Image:", violation.image);
+console.log("Plate Image:", violation.plateImage);
 
 // Initialize when page loads
 window.onload = async function () {
