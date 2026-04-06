@@ -46,10 +46,10 @@ function loadViolationDetail() {
         : '<span class="status-badge status-pending">Pending</span>';
     document.getElementById('detailAddress').textContent = violation.address;
     const imgEl = document.getElementById('detailImage');
-    if (imgEl) imgEl.src = violation.violation_img || '';
+    if (imgEl) imgEl.src = violation.image || '';
 
     const plateImgEl = document.getElementById('detailPlateImage');
-    if (plateImgEl) plateImgEl.src = violation.number_plate_img || '';
+    if (plateImgEl) plateImgEl.src = violation.plateImage || '';
 }
 
 // Show edit modal (Professional modal with form)
